@@ -1,5 +1,5 @@
-import { client } from "@/libs/client";
-import styles from "./page.module.css";
+import { client } from '@/libs/client';
+import styles from './page.module.css';
 
 type Content = {
   id: string;
@@ -9,14 +9,15 @@ type Content = {
 
 export default async function Home() {
   const { contents } = await client.get({
-    customRequestInit: {
-      next: {
-        tags: ["blogs"]
-      }
-    },
-    endpoint: "blogs"
+    // TODO: 相談してから最新の情報表示の対応を決めたい
+    // customRequestInit: {
+    //   next: {
+    //     tags: ['blogs'],
+    //   },
+    // },
+    endpoint: 'blogs',
   });
-  console.log("contents");
+  console.log('contents');
   console.log(contents);
 
   return (
