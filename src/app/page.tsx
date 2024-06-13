@@ -1,16 +1,23 @@
 import { client } from "@/libs/client";
 import styles from "./page.module.css";
 
+type Content = {
+  id: string;
+  title: string;
+  body: string;
+};
+
 export default async function Home() {
   const { contents } = await client.get({
+    customRequestInit: {
+      next: {
+        tags: ["blogs"]
+      }
+    },
     endpoint: "blogs"
   });
-
-  type Content = {
-    id: string;
-    title: string;
-    body: string;
-  };
+  console.log("contents");
+  console.log(contents);
 
   return (
     <main className={styles.main}>
