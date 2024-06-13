@@ -2,17 +2,24 @@ import { client } from "@/libs/client";
 import styles from "./page.module.css";
 
 export default async function Home() {
-  const data = await client.get({
-    endpoint: "blog"
+  const { contents } = await client.get({
+    endpoint: "blogs"
   });
 
-  const title = data.contents[0].title;
-  const body = data.contents[0].body;
+  type Content = {
+    id: string;
+    title: string;
+    body: string;
+  };
 
   return (
     <main className={styles.main}>
-      <h3>{title}</h3>
-      <div>{body}</div>
+      {contents.map((content: Content) => (
+        <div key={content.id}>
+          <h3>{content.title}</h3>
+          <div>{content.body}</div>
+        </div>
+      ))}
     </main>
   );
 }
