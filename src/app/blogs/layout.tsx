@@ -1,6 +1,5 @@
 'use client';
 
-import { getBlogs } from '@/libs/get-blogs';
 import { createContext, useEffect, useState } from 'react';
 
 type Blog = {
@@ -21,14 +20,30 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const ferchBlogs = async () => {
-      const contents = await getBlogs();
-      setBlogs(contents);
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('/api/blogs');
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch blogs');
+        }
+
+        const data = await response.json();
+        const { contents } = data;
+        setBlogs(contents);
+      } catch (error) {
+        setError('An unknown error occurred');
+      }
     };
-    ferchBlogs();
+    fetchBlogs();
   }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <BlogContext.Provider value={blogs}>
