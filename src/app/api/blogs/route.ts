@@ -9,17 +9,16 @@ const client = createClient({
 export async function GET() {
   try {
     const { contents } = await client.get({
-      // TODO: 相談してから最新の情報表示の対応を決めたい
-      // customRequestInit: {
-      //   next: {
-      //     tags: ['blogs'],
-      //   },
-      // },
+      customRequestInit: {
+        cache: 'no-store',
+      },
       endpoint: 'blogs',
     });
-
+    // TODO: エラーハンドリングドキュメント見る
     return NextResponse.json({ contents }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: 'Failed to fetch blogs' }, { status: 500 });
   }
 }
+
+// TODO: 1件取得してくる関数を追加する

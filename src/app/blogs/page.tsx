@@ -2,7 +2,6 @@
 
 import { useBlogs } from '@/hooks/use-blogs';
 import Link from 'next/link';
-import styles from './styles.module.css';
 
 export default function Home() {
   const { getAllBlogs, error } = useBlogs();
@@ -13,7 +12,7 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.root}>
+    <div>
       {blogs.map(({ id, title, body }) => (
         <div key={id}>
           <h3>{title}</h3>

@@ -35,6 +35,7 @@ export const useBlogs = () => {
     fetchBlogs();
   }, []);
 
+  // TODO: ここで全件取得と１件取得を定義しない。このファイルは１件取得用にして、全件取得は別ファイルに作る。
   const getAllBlogs = () => blogs;
   const getBlogById = (id: string) => blogs.find((blog) => blog.id === id);
 
