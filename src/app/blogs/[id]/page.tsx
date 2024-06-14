@@ -1,24 +1,28 @@
+'use client';
+
+import { useBlogs } from '@/hooks/use-blogs';
+import { useParams } from 'next/navigation';
 import styles from './page.module.css';
 
-type Blog = {
-  id: string;
-  title: string;
-  body: string;
-};
+const BlogHome = () => {
+  const { getBlogById, error } = useBlogs();
+  const { id } = useParams();
+  const blog = getBlogById(id as string);
 
-type Props = {
-  contents: Blog;
-};
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
-export default async function BlogHome({ contents }: Props) {
+  if (!blog) {
+    return <div>Blog not found</div>;
+  }
+
   return (
     <div className={styles.root}>
-      {contents.map(({ id, title, body }: Blog) => (
-        <div key={id}>
-          <h3>{title}</h3>
-          <div>{body}</div>
-        </div>
-      ))}
+      <h3>{blog.title}</h3>
+      <div>{blog.body}</div>
     </div>
   );
-}
+};
+
+export default BlogHome;

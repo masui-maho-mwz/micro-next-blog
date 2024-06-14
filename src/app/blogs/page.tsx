@@ -1,11 +1,15 @@
 'use client';
 
-import { BlogContext } from '@/app/blogs/layout';
+import { useBlogs } from '@/hooks/use-blogs';
 import Link from 'next/link';
-import { useContext } from 'react';
 
 export default function Home() {
-  const blogs = useContext(BlogContext);
+  const { getAllBlogs, error } = useBlogs();
+  const blogs = getAllBlogs();
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
