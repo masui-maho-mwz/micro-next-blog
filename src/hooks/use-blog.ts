@@ -12,28 +12,29 @@ type Blog = {
   updatedAt: string;
 };
 
-export const useBlogs = () => {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+export const useBlog = (id: string) => {
+  const [blog, setBlog] = useState<Blog | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchBlog = async () => {
       try {
-        const response = await fetch('/api/blogs');
+        const response = await fetch(`/api/blogs?id=${id}`);
 
         if (!response.ok) {
-          throw new Error('Failed to fetch blogs');
+          throw new Error('Failed to fetch blog');
         }
 
         const data = await response.json();
-        const { contents } = data;
-        setBlogs(contents);
+        setBlog(data);
       } catch (error) {
         setError('An unknown error occurred');
       }
     };
-    fetchBlogs();
-  }, []);
+    if (id) {
+      fetchBlog();
+    }
+  }, [id]);
 
-  return { blogs, error };
+  return { blog, error };
 };

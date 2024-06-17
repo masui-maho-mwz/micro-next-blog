@@ -1,14 +1,13 @@
 'use client';
 
-import { useBlogs } from '@/hooks/use-blogs';
+import { useBlog } from '@/hooks/use-blog';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 const BlogHome = () => {
-  const { getBlogById, error } = useBlogs();
   const params = useParams();
   const blogId = typeof params.id === 'string' ? params.id : '';
-  const blog = getBlogById(blogId);
+  const { blog, error } = useBlog(blogId);
 
   if (error) {
     return <div>Error: {error}</div>;

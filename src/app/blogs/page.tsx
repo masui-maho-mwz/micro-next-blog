@@ -4,8 +4,7 @@ import { useBlogs } from '@/hooks/use-blogs';
 import Link from 'next/link';
 
 export default function Home() {
-  const { getAllBlogs, error } = useBlogs();
-  const blogs = getAllBlogs();
+  const { blogs, error } = useBlogs();
 
   if (error) {
     return <div>Error: {error}</div>;
