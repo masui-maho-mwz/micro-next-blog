@@ -1,6 +1,6 @@
 'use client';
 
-import { useBlogs } from '@/hooks/use-blogs';
+import { useBlogs } from '@/hooks/use-blog';
 import Link from 'next/link';
 
 export default function Home() {

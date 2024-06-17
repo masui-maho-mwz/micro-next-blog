@@ -1,6 +1,4 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+import { useFetchData } from './use-fetch-data';
 
 type Blog = {
   id: string;
@@ -12,29 +10,12 @@ type Blog = {
   updatedAt: string;
 };
 
+export const useBlogs = () => {
+  const { data, error } = useFetchData<{ contents: Blog[] }>('/api/blogs');
+  return { blogs: data?.contents || [], error };
+};
+
 export const useBlog = (id: string) => {
-  const [blog, setBlog] = useState<Blog | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        const response = await fetch(`/api/blogs?id=${id}`);
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch blog');
-        }
-
-        const data = await response.json();
-        setBlog(data);
-      } catch (error) {
-        setError('An unknown error occurred');
-      }
-    };
-    if (id) {
-      fetchBlog();
-    }
-  }, [id]);
-
-  return { blog, error };
+  const { data, error } = useFetchData<Blog>(id ? `/api/blogs?id=${id}` : '');
+  return { blog: data, error };
 };
