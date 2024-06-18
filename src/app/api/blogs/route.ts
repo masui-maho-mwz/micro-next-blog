@@ -29,6 +29,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');
 
+  // TODO:取得した後にstringになってる？Dateだったらデータ取得後にstringにする。
+  // UTC形式タイムスタンプ
   try {
     if (id) {
       const blog = await fetchBlogById(id);

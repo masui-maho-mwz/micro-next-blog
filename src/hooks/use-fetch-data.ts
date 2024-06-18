@@ -5,10 +5,10 @@ type FetchState<T> = {
   error: string | null;
 };
 
-export const useFetchData = <T>(url: string): FetchState<T> => {
+export const useGetFetch = <T>(url: string): FetchState<T> => {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  // useEffectはここで良い？呼び出し元の方が良かったりする？
   useEffect(() => {
     const fetchData = async () => {
       try {
