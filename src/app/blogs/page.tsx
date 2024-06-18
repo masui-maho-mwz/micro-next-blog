@@ -27,6 +27,7 @@ export default function Home() {
                   <h2 className={styles.articleTitle}>{title}</h2>
                 </a>
                 <div>
+                  TODO: 日付の表記を修正する
                   <div>{createdAt}</div>
                 </div>
               </div>
