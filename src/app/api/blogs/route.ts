@@ -10,7 +10,6 @@ const fetchBlogById = async (id: string): Promise<Blog> => {
       contentId: id,
     });
   } catch (error) {
-    console.error('Error fetching blog by ID:', error);
     throw new Error('Failed to fetch blog');
   }
 };
@@ -22,7 +21,6 @@ const fetchAllBlogs = async (): Promise<Blogs> => {
       endpoint: 'blogs',
     });
   } catch (error) {
-    console.error('Error fetching all blogs:', error);
     throw new Error('Failed to fetch blogs');
   }
 };
@@ -42,7 +40,6 @@ export async function GET(request: Request) {
   } catch (error) {
     //     // TODO: エラーハンドリングドキュメント見る
     //     // https://document.microcms.io/content-api/api-error-response
-    console.error('Error in GET handler:', error);
     return NextResponse.json({ message: 'Failed to fetch blogs' }, { status: 500 });
   }
 }
