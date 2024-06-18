@@ -1,7 +1,8 @@
 import { client } from '@/lib/microcms-client';
+import type { Blog, Blogs } from '@/lib/types';
 import { NextResponse } from 'next/server';
 
-const fetchBlogById = async (id: string) => {
+const fetchBlogById = async (id: string): Promise<Blog> => {
   try {
     return await client.get({
       customRequestInit: { cache: 'no-store' },
@@ -9,17 +10,19 @@ const fetchBlogById = async (id: string) => {
       contentId: id,
     });
   } catch (error) {
+    console.error('Error fetching blog by ID:', error);
     throw new Error('Failed to fetch blog');
   }
 };
 
-const fetchAllBlogs = async () => {
+const fetchAllBlogs = async (): Promise<Blogs> => {
   try {
     return await client.get({
       customRequestInit: { cache: 'no-store' },
       endpoint: 'blogs',
     });
   } catch (error) {
+    console.error('Error fetching all blogs:', error);
     throw new Error('Failed to fetch blogs');
   }
 };
@@ -38,8 +41,8 @@ export async function GET(request: Request) {
     }
   } catch (error) {
     //     // TODO: エラーハンドリングドキュメント見る
-    // TODO: console.logでエラーを見たい
     //     // https://document.microcms.io/content-api/api-error-response
+    console.error('Error in GET handler:', error);
     return NextResponse.json({ message: 'Failed to fetch blogs' }, { status: 500 });
   }
 }

@@ -1,14 +1,5 @@
+import type { Blog } from '@/lib/types';
 import { useFetchData } from './use-fetch-data';
-
-type Blog = {
-  id: string;
-  title: string;
-  body: string;
-  createdAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  updatedAt: string;
-};
 
 export const useBlogs = () => {
   const { data, error } = useFetchData<{ contents: Blog[] }>('/api/blogs');
