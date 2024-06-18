@@ -1,7 +1,7 @@
 'use client';
 
 import { useBlogs } from '@/hooks/use-blog';
-import Link from 'next/link';
+import styles from './styles.module.css';
 
 export default function Home() {
   const { blogs, error } = useBlogs();
@@ -11,14 +11,29 @@ export default function Home() {
   }
 
   return (
-    <div>
-      {blogs.map(({ id, title, body }) => (
-        <div key={id}>
-          <h3>{title}</h3>
-          <p>{body}</p>
-          <Link href={`/blogs/${id}`}>詳細</Link>
+    <section className={styles.root}>
+      <div className={styles.wrap}>
+        <span className={styles.space}></span>
+        <div className={styles.pageTitleWrap}>
+          <h3 className={styles.pageTitle}>Tech</h3>
         </div>
-      ))}
-    </div>
+        <span className={styles.space}></span>
+        <div className={styles.articles}>
+          {blogs.map(({ id, title, createdAt }) => (
+            <article key={id} className={styles.article}>
+              <div className={styles.emoji}>🦊</div>
+              <div className={styles.body}>
+                <a href={`/blogs/${id}`} className={styles.articleTitleWrap}>
+                  <h2 className={styles.articleTitle}>{title}</h2>
+                </a>
+                <div>
+                  <div>{createdAt}</div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
