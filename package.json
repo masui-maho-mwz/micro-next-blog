@@ -11,6 +11,7 @@
   "dependencies": {
     "microcms-js-sdk": "^3.1.1",
     "next": "14.2.4",
+    "normalize.css": "^8.0.1",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -18,8 +19,11 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.2",
     "typescript": "^5"
   }
 }
